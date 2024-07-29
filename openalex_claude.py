@@ -18,103 +18,103 @@ def get_paper_data(doi):
         return None
 
 
-def extract_pdf_content(url):
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            pdf = PdfReader(io.BytesIO(response.content))
-            content = ""
-            for page in pdf.pages:
-                content += page.extract_text()
-            return content
-    except Exception as e:
-        print(f"Failed to extract PDF content from {url}: {str(e)}")
-    return None
-
-
-# def extract_html_content(url):
+# def extract_pdf_content(url):
 #     try:
-#         user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0"
-
-#         headers={
-#           'User-Agent':user_agent,
-#           'Accept-Encoding': 'gzip, deflate, br, zstd',
-#           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#           'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-#           'Accept-Encoding': 'none',
-#           'Accept-Language': 'en-US,en;q=0.8',
-#           'Connection': 'keep-alive'
-#         }
-#         response = requests.get(url, headers=headers)
+#         response = requests.get(url)
 #         if response.status_code == 200:
-#             soup = BeautifulSoup(response.content, 'html.parser')
-            
-#             # Try to find a PDF link in the HTML
-#             # pdf_link = soup.find('a', href=lambda href: href and href.endswith('.pdf'))
-#             # if pdf_link:
-#             #     pdf_url = pdf_link['href']
-#             #     if not pdf_url.startswith('http'):
-#             #         pdf_url = f"{'/'.join(url.split('/')[:3])}{pdf_url}"
-#             #     return extract_pdf_content(pdf_url)
-            
-#             # If no PDF link is found, extract text content from the HTML
-#             article_content = soup.find('div', class_='article-content')
-#             if article_content:
-#                 return article_content.get_text(separator='\n', strip=True)
-#             else:
-#                 return soup.get_text(separator='\n', strip=True)
+#             pdf = PdfReader(io.BytesIO(response.content))
+#             content = ""
+#             for page in pdf.pages:
+#                 content += page.extract_text()
+#             return content
 #     except Exception as e:
-#         print(f"Failed to extract HTML content from {url}: {str(e)}")
+#         print(f"Failed to extract PDF content from {url}: {str(e)}")
 #     return None
 
-def extract_html_content(url="https://www.annualreviews.org/content/journals/10.1146/annurev-economics-080614-115430"):
-  user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0"
 
-  headers={
-    'User-Agent':user_agent,
-    'Accept-Encoding': 'gzip, deflate, br, zstd',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-    'Accept-Encoding': 'none',
-    'Accept-Language': 'en-US,en;q=0.8',
-    'Connection': 'keep-alive'
-  }
+# # def extract_html_content(url):
+# #     try:
+# #         user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0"
 
-  request = urllib.request.Request(url, None, headers)
-  try:
-      html = urllib.request.urlopen(request).read()
-      html_str = html.decode('utf-8')
-      text = html2text.html2text(html_str)
-      print(text)
-  except urllib.error.HTTPError as e:
-      print(f"HTTP Error {e.code}: {e.reason}")
+# #         headers={
+# #           'User-Agent':user_agent,
+# #           'Accept-Encoding': 'gzip, deflate, br, zstd',
+# #           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+# #           'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+# #           'Accept-Encoding': 'none',
+# #           'Accept-Language': 'en-US,en;q=0.8',
+# #           'Connection': 'keep-alive'
+# #         }
+# #         response = requests.get(url, headers=headers)
+# #         if response.status_code == 200:
+# #             soup = BeautifulSoup(response.content, 'html.parser')
+            
+# #             # Try to find a PDF link in the HTML
+# #             # pdf_link = soup.find('a', href=lambda href: href and href.endswith('.pdf'))
+# #             # if pdf_link:
+# #             #     pdf_url = pdf_link['href']
+# #             #     if not pdf_url.startswith('http'):
+# #             #         pdf_url = f"{'/'.join(url.split('/')[:3])}{pdf_url}"
+# #             #     return extract_pdf_content(pdf_url)
+            
+# #             # If no PDF link is found, extract text content from the HTML
+# #             article_content = soup.find('div', class_='article-content')
+# #             if article_content:
+# #                 return article_content.get_text(separator='\n', strip=True)
+# #             else:
+# #                 return soup.get_text(separator='\n', strip=True)
+# #     except Exception as e:
+# #         print(f"Failed to extract HTML content from {url}: {str(e)}")
+# #     return None
+
+# def extract_html_content(url="https://www.annualreviews.org/content/journals/10.1146/annurev-economics-080614-115430"):
+#   user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0"
+
+#   headers={
+#     'User-Agent':user_agent,
+#     'Accept-Encoding': 'gzip, deflate, br, zstd',
+#     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#     'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+#     'Accept-Encoding': 'none',
+#     'Accept-Language': 'en-US,en;q=0.8',
+#     'Connection': 'keep-alive'
+#   }
+
+#   request = urllib.request.Request(url, None, headers)
+#   try:
+#       html = urllib.request.urlopen(request).read()
+#       html_str = html.decode('utf-8')
+#       text = html2text.html2text(html_str)
+#       print(text)
+#   except urllib.error.HTTPError as e:
+#       print(f"HTTP Error {e.code}: {e.reason}")
       
 
-def extract_content(locations):
-    for location in locations:
-        pdf_url = location.get('pdf_url')
-        landing_page_url = location.get('landing_page_url')
+# def extract_content(locations):
+#     for location in locations:
+#         pdf_url = location.get('pdf_url')
+#         landing_page_url = location.get('landing_page_url')
         
-        if landing_page_url:
-            content = extract_html_content(landing_page_url)
-            print("html content: ", content)
-            if content:
-                return content
+#         if landing_page_url:
+#             content = extract_html_content(landing_page_url)
+#             print("html content: ", content)
+#             if content:
+#                 return content
             
-        elif pdf_url:
-            content = extract_pdf_content(pdf_url)
-            print("pdf content: ", content)
-            if content:
-                return content
+#         elif pdf_url:
+#             content = extract_pdf_content(pdf_url)
+#             print("pdf content: ", content)
+#             if content:
+#                 return content
         
-        # elif landing_page_url:
-        #     content = extract_html_content(landing_page_url)
-            # print("html content: ", content)
-        #     if content:
-        #         return content
+#         # elif landing_page_url:
+#         #     content = extract_html_content(landing_page_url)
+#             # print("html content: ", content)
+#         #     if content:
+#         #         return content
         
     
-    return None
+#     return None
 
 def process_paper(paper):
     doi = paper.get('doi')
@@ -129,18 +129,19 @@ def process_paper(paper):
         'doi': doi,
         'title': data.get('title'),
         'authors': [author['author']['display_name'] for author in data.get('authorships', [])],
-        'abstract': data.get('abstract'),
+        'abstract': data.get('abstract', []),
+        'keywords': data.get('keywords', []),
         'references': data.get('referenced_works', []),
         'metadata': data,
         'level': paper.get('level', 0)
     }
 
-    # Try to extract full content
-    content = extract_content(data.get('locations', []))
-    if content:
-        result['full_content'] = content
-    else:
-        print(f"Could not extract full content for DOI: {doi}")
+    # # Try to extract full content
+    # content = extract_content(data.get('locations', []))
+    # if content:
+    #     result['full_content'] = content
+    # else:
+    #     print(f"Could not extract full content for DOI: {doi}")
 
     return result
 
